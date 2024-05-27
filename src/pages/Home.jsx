@@ -1,5 +1,14 @@
+import SelectMonth from "../components/SelectMonth";
+import ExpensesList from "../components/ExpensesList.jsx";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      {/* <지출 등록 /> */}
+      <SelectMonth />
+      <ExpensesList />
+    </>
+  );
 };
 
 export default Home;

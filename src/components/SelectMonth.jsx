@@ -24,14 +24,11 @@ const SelectMonth = ({ selectedMonth, setSelectedMonth, setExpenses }) => {
   const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
-    localStorage.setItem("month", JSON.stringify(selectedMonth + 1));
-  }, [selectedMonth]);
-
-  useEffect(() => {
     handleClick(selectedMonth);
   }, []);
 
   const handleClick = (index) => {
+    localStorage.setItem("month", index);
     setSelectedMonth(index);
     setExpenses(
       dummy.filter((el) => {

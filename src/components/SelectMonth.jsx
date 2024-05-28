@@ -5,16 +5,17 @@ import { useEffect } from "react";
 // styled component
 const StUl = styled.ul`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   gap: 20px;
   padding: 20px;
-  margin-top: 30px;
+  margin: 30px 30px 0;
   border-radius: 10px;
   background-color: #fff;
+  box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2);
 `;
 const StLi = styled.li`
   padding: 20px 0;
-  background-color: ${(props) => (props.$active ? "pink" : "#eee")};
+  background-color: ${(props) => (props.$active ? "#05b38f" : "#eee")};
   border-radius: 10px;
   text-align: center;
   cursor: pointer;

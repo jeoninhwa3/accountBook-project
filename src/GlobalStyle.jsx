@@ -4,10 +4,13 @@ import reset from "styled-reset";
 const GlobalStyle = createGlobalStyle`
 	${reset}
 	body {
-		max-width: 1200px;
-		padding: 30px 0;
-		margin: 0 auto;
-		background-color: pink;
+		font-family: "Noto Sans", sans-serif;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+		/* background-color: #05B38F; */
+		background: url(https://img.freepik.com/free-photo/wallpaper-background-several-transparent-circles_58702-7112.jpg?size=626&ext=jpg&ga=GA1.1.44546679.1716076800&semt=ais_user) no-repeat center / cover;
 	}
 `;
 export default GlobalStyle;

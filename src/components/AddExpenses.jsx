@@ -7,12 +7,28 @@ const StForm = styled.form`
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
+  margin: 0 30px;
   border-radius: 10px;
   background-color: #fff;
+  box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2);
 `;
 const StLabel = styled.label`
   display: flex;
   flex-direction: column;
+  font-size: 13px;
+`;
+const StInput = styled.input`
+  padding: 9px 18px 7px;
+  margin-top: 7px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+`;
+const StBtn = styled.button`
+  padding: 10px 20px;
+  margin-top: 7px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  cursor: pointer;
 `;
 
 const AddExpenses = ({ setExpenses }) => {
@@ -24,6 +40,7 @@ const AddExpenses = ({ setExpenses }) => {
     const amount = formData.get("amount");
     const description = formData.get("description");
 
+    // 유효성 검사
     if (!date.trim()) {
       alert("날짜를 입력해주세요.");
       return;
@@ -57,7 +74,7 @@ const AddExpenses = ({ setExpenses }) => {
     <StForm onSubmit={onSubmit}>
       <StLabel>
         날짜
-        <input
+        <StInput
           name="date"
           type="date"
           min="2024-01-01"
@@ -67,17 +84,17 @@ const AddExpenses = ({ setExpenses }) => {
       </StLabel>
       <StLabel>
         항목
-        <input name="item" type="text" placeholder="지출 항목" />
+        <StInput name="item" type="text" placeholder="지출 항목" />
       </StLabel>
       <StLabel>
         금액
-        <input name="amount" type="number" placeholder="지출 금액" />
+        <StInput name="amount" type="number" placeholder="지출 금액" />
       </StLabel>
       <StLabel>
         내용
-        <input name="description" type="text" placeholder="지출 내용" />
+        <StInput name="description" type="text" placeholder="지출 내용" />
       </StLabel>
-      <button type="submit">저장</button>
+      <StBtn type="submit">저장</StBtn>
     </StForm>
   );
 };

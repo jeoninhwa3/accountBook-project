@@ -27,11 +27,15 @@ const SelectMonth = ({ selectedMonth, setSelectedMonth, setExpenses }) => {
     localStorage.setItem("month", JSON.stringify(selectedMonth + 1));
   }, [selectedMonth]);
 
+  useEffect(() => {
+    handleClick(selectedMonth);
+  }, []);
+
   const handleClick = (index) => {
     setSelectedMonth(index);
     setExpenses(
       dummy.filter((el) => {
-        return parseInt(el.date.split("-")[1]) == months[index];
+        return parseInt(el.date.split("-")[1]) === months[index];
       })
     );
   };

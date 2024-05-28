@@ -1,8 +1,9 @@
-import { useState } from "react";
 import styled from "styled-components";
+import dummy from "../dummy.json";
+import { useEffect } from "react";
 
 // styled component
-const Ul = styled.ul`
+const StUl = styled.ul`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 20px;
@@ -11,7 +12,7 @@ const Ul = styled.ul`
   border-radius: 10px;
   background-color: #fff;
 `;
-const Li = styled.li`
+const StLi = styled.li`
   padding: 20px 0;
   background-color: ${(props) => (props.$active ? "pink" : "#eee")};
   border-radius: 10px;
@@ -19,41 +20,35 @@ const Li = styled.li`
   cursor: pointer;
 `;
 
-const SelectMonth = () => {
-  const [selectedMonth, setSelectedMonth] = useState("");
-  const months = [
-    "1월",
-    "2월",
-    "3월",
-    "4월",
-    "5월",
-    "6월",
-    "7월",
-    "8월",
-    "9월",
-    "10월",
-    "11월",
-    "12월",
-  ];
+const SelectMonth = ({ selectedMonth, setSelectedMonth, setExpenses }) => {
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+  useEffect(() => {
+    localStorage.setItem("month", JSON.stringify(selectedMonth + 1));
+  }, [selectedMonth]);
 
   const handleClick = (index) => {
     setSelectedMonth(index);
-    console.log(index);
+    setExpenses(
+      dummy.filter((el) => {
+        return parseInt(el.date.split("-")[1]) == months[index];
+      })
+    );
   };
   return (
-    <Ul>
+    <StUl>
       {months.map((month, index) => {
         return (
-          <Li
+          <StLi
             key={index}
             $active={selectedMonth === index}
             onClick={() => handleClick(index)}
           >
-            {month}
-          </Li>
+            {month} 월
+          </StLi>
         );
       })}
-    </Ul>
+    </StUl>
   );
 };
 

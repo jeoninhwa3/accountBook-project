@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
 	${reset}
 	body {
 		max-width: 1200px;
-		max-height: 800px;
+		padding: 30px 0;
 		margin: 0 auto;
 		background-color: pink;
 	}

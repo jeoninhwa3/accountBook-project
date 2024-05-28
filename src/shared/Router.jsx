@@ -1,14 +1,27 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Detail from "../pages/Detail";
+import Layout from "../Layout";
 
-const Router = () => {
+const Router = ({ selectedMonth, setSelectedMonth, expenses, setExpenses }) => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/detail/:id" element={<Detail />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                selectedMonth={selectedMonth}
+                setSelectedMonth={setSelectedMonth}
+                expenses={expenses}
+                setExpenses={setExpenses}
+              />
+            }
+          />
+          <Route path="/detail/:id" element={<Detail />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 };

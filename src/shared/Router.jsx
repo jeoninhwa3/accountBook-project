@@ -19,7 +19,10 @@ const Router = ({ selectedMonth, setSelectedMonth, expenses, setExpenses }) => {
               />
             }
           />
-          <Route path="/detail/:id" element={<Detail />} />
+          <Route
+            path="/detail/:id"
+            element={<Detail expenses={expenses} setExpenses={setExpenses} />}
+          />
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -41,7 +41,7 @@ const ExpensesList = ({ expenses }) => {
       {expenses.map((el) => {
         return (
           <li key={el.id}>
-            <StLink to={`/detail/${el.id}`} state={el}>
+            <StLink to={`/detail/${el.id}`}>
               <div>
                 <p>{el.date}</p>
                 <StDesc>

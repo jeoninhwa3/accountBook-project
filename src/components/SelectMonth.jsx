@@ -21,21 +21,16 @@ const StLi = styled.li`
   cursor: pointer;
 `;
 
-const SelectMonth = ({ selectedMonth, setSelectedMonth, setExpenses }) => {
+const SelectMonth = ({ selectedMonth, setSelectedMonth }) => {
   const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
     handleClick(selectedMonth);
   }, []);
 
-  const handleClick = (index) => {
-    localStorage.setItem("month", index);
-    setSelectedMonth(index);
-    setExpenses(
-      dummy.filter((el) => {
-        return parseInt(el.date.split("-")[1]) === months[index];
-      })
-    );
+  const handleClick = (month) => {
+    localStorage.setItem("month", month);
+    setSelectedMonth(month);
   };
   return (
     <StUl>
@@ -43,8 +38,8 @@ const SelectMonth = ({ selectedMonth, setSelectedMonth, setExpenses }) => {
         return (
           <StLi
             key={index}
-            $active={selectedMonth === index}
-            onClick={() => handleClick(index)}
+            $active={selectedMonth === month}
+            onClick={() => handleClick(month)}
           >
             {month} 월
           </StLi>

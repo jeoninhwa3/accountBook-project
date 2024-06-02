@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 
 // styled components
 const StContainer = styled.div`
@@ -38,31 +38,50 @@ const StBtn = styled.button`
   cursor: pointer;
 `;
 
-const Detail = ({ expenses }) => {
+const Detail = ({ expenses, setExpenses }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const expense = location.state;
-  const dateRef = useRef(null);
-  const itemRef = useRef(null);
-  const amountRef = useRef(null);
-  const descriptionRef = useRef(null);
+  const { id } = useParams();
 
-  const handleSubmit = () => {
-    if (!itemRef.trim() || !descriptionRef.trim()) {
-      alert("항목과 내용을 모두 입력해주세요.");
+  const selectedExpense = expenses.find((expense) => expense.id === id);
+  const [date, setDate] = useState(selectedExpense.date);
+  const [item, setItem] = useState(selectedExpense.item);
+  const [amount, setAmount] = useState(selectedExpense.amount);
+  const [description, setDescription] = useState(selectedExpense.description);
+
+  const editExpense = () => {
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!datePattern.test(date)) {
+      alert("날짜를 YYYY-MM-DD 형식으로 입력해주세요.");
+      return;
     }
-  };
-  const handelDelete = () => {
-    confirm("정말로 삭제하시겠습니까?");
-    const deleteId = expense.id;
-    filterDelete(deleteId);
+
+    if (!item.trim() || !description.trim()) {
+      alert("항목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    const newExpenses = expenses.map((expense) => {
+      if (expense.id !== id) {
+        return expense;
+      } else {
+        return {
+          ...expense,
+          date,
+          item,
+          amount,
+          description,
+        };
+      }
+    });
+    setExpenses(newExpenses);
     navigate("/");
   };
-
-  const filterDelete = (deleteId) => {
-    return expenses.filter((expense) => {
-      return deleteId !== expense.id;
-    });
+  const deleteExpense = () => {
+    if (confirm("정말로 삭제하시겠습니까?")) {
+      const newExpenses = expenses.filter((expense) => expense.id !== id);
+      setExpenses(newExpenses);
+      navigate("/");
+    }
   };
 
   return (
@@ -71,9 +90,9 @@ const Detail = ({ expenses }) => {
         <StLabel>
           날짜
           <StInput
-            ref={dateRef}
-            name="date"
-            defaultValue={location.state.date}
+            id={date}
+            defaultValue={date}
+            onChange={(e) => setDate(e.target.value)}
             type="text"
             placeholder="날짜 입력"
           />
@@ -81,9 +100,9 @@ const Detail = ({ expenses }) => {
         <StLabel>
           항목
           <StInput
-            ref={itemRef}
-            name="item"
-            defaultValue={location.state.item}
+            id={item}
+            defaultValue={item}
+            onChange={(e) => setItem(e.target.value)}
             type="text"
             placeholder="지출 항목"
           />
@@ -91,9 +110,9 @@ const Detail = ({ expenses }) => {
         <StLabel>
           금액
           <StInput
-            ref={amountRef}
-            name="amount"
-            defaultValue={location.state.amount}
+            id={amount}
+            defaultValue={amount}
+            onChange={(e) => setAmount(e.target.value)}
             type="number"
             placeholder="지출 금액"
           />
@@ -101,19 +120,17 @@ const Detail = ({ expenses }) => {
         <StLabel>
           내용
           <StInput
-            ref={descriptionRef}
-            name="description"
-            defaultValue={location.state.description}
+            id={description}
+            defaultValue={description}
+            onChange={(e) => setDescription(e.target.value)}
             type="text"
             placeholder="지출 내용"
           />
         </StLabel>
       </StForm>
       <StBtnBox>
-        <StBtn onClick={handleSubmit} type="submit">
-          수정
-        </StBtn>
-        <StBtn onClick={handelDelete} type="submit">
+        <StBtn onClick={editExpense}>수정</StBtn>
+        <StBtn onClick={deleteExpense} type="submit">
           삭제
         </StBtn>
         <StBtn

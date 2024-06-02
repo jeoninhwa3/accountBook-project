@@ -58,7 +58,7 @@ const AddExpenses = ({ setExpenses }) => {
       return;
     }
 
-    const nextExpenses = {
+    const nextExpense = {
       id: uuid(),
       date,
       item,
@@ -66,7 +66,7 @@ const AddExpenses = ({ setExpenses }) => {
       description,
     };
 
-    setExpenses((prev) => [...prev, nextExpenses]);
+    setExpenses((prev) => [...prev, nextExpense]);
     e.target.reset();
   };
 

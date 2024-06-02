@@ -3,6 +3,9 @@ import ExpensesList from "../components/ExpensesList.jsx";
 import AddExpenses from "../components/AddExpenses.jsx";
 
 const Home = ({ selectedMonth, setSelectedMonth, expenses, setExpenses }) => {
+  const filterExpense = expenses.filter(
+    (expense) => parseInt(expense.date.split("-")[1]) === selectedMonth
+  );
   return (
     <>
       <AddExpenses setExpenses={setExpenses} />
@@ -11,7 +14,7 @@ const Home = ({ selectedMonth, setSelectedMonth, expenses, setExpenses }) => {
         setSelectedMonth={setSelectedMonth}
         setExpenses={setExpenses}
       />
-      <ExpensesList expenses={expenses} setExpenses={setExpenses} />
+      <ExpensesList expenses={filterExpense} setExpenses={setExpenses} />
     </>
   );
 };

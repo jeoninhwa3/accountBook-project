@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import dummy from "../dummy.json";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { ExpenseContext } from "../contexts/ExpenseContext.jsx";
 
 // styled component
 const StUl = styled.ul`
@@ -21,8 +21,9 @@ const StLi = styled.li`
   cursor: pointer;
 `;
 
-const SelectMonth = ({ selectedMonth, setSelectedMonth }) => {
+const SelectMonth = () => {
   const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const { selectedMonth, setSelectedMonth } = useContext(ExpenseContext);
 
   useEffect(() => {
     handleClick(selectedMonth);

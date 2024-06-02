@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import uuid from "react-uuid";
+import { useContext } from "react";
+import { ExpenseContext } from "../contexts/ExpenseContext.jsx";
 
 // styled components
 const StForm = styled.form`
@@ -31,7 +33,8 @@ const StBtn = styled.button`
   cursor: pointer;
 `;
 
-const AddExpenses = ({ setExpenses }) => {
+const AddExpenses = () => {
+  const { setExpenses } = useContext(ExpenseContext);
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);

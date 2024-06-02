@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ExpenseContext } from "../contexts/ExpenseContext.jsx";
 
 // styled components
 const StContainer = styled.div`
@@ -38,7 +39,9 @@ const StBtn = styled.button`
   cursor: pointer;
 `;
 
-const Detail = ({ expenses, setExpenses }) => {
+const Detail = () => {
+  const { expenses, setExpenses } = useContext(ExpenseContext);
+
   const navigate = useNavigate();
   const { id } = useParams();
 

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StContainer = styled.div`
   position: relative;
   width: 1200px;
-  height: 800px;
+  height: 700px;
   padding-bottom: 30px;
   background-color: #05b38f;
   border: 7px solid #fff;

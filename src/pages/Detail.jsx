@@ -42,13 +42,19 @@ const Detail = ({ expenses, setExpenses }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const selectedExpense = expenses.find((el) => el.id === id);
+  const selectedExpense = expenses.find((expense) => expense.id === id);
   const [date, setDate] = useState(selectedExpense.date);
   const [item, setItem] = useState(selectedExpense.item);
   const [amount, setAmount] = useState(selectedExpense.amount);
   const [description, setDescription] = useState(selectedExpense.description);
 
   const editExpense = () => {
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!datePattern.test(date)) {
+      alert("날짜를 YYYY-MM-DD 형식으로 입력해주세요.");
+      return;
+    }
+
     if (!item.trim() || !description.trim()) {
       alert("항목과 내용을 모두 입력해주세요.");
       return;
@@ -60,16 +66,15 @@ const Detail = ({ expenses, setExpenses }) => {
       } else {
         return {
           ...expense,
-          date: date,
-          item: item,
-          amount: amount,
-          description: description,
+          date,
+          item,
+          amount,
+          description,
         };
       }
     });
     setExpenses(newExpenses);
     navigate("/");
-    console.log(newExpenses);
   };
   const deleteExpense = () => {
     if (confirm("정말로 삭제하시겠습니까?")) {
@@ -85,18 +90,16 @@ const Detail = ({ expenses, setExpenses }) => {
         <StLabel>
           날짜
           <StInput
-            name="date"
             id={date}
             defaultValue={date}
             onChange={(e) => setDate(e.target.value)}
-            type="date"
+            type="text"
             placeholder="날짜 입력"
           />
         </StLabel>
         <StLabel>
           항목
           <StInput
-            name="item"
             id={item}
             defaultValue={item}
             onChange={(e) => setItem(e.target.value)}
@@ -107,7 +110,6 @@ const Detail = ({ expenses, setExpenses }) => {
         <StLabel>
           금액
           <StInput
-            name="amount"
             id={amount}
             defaultValue={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -118,7 +120,6 @@ const Detail = ({ expenses, setExpenses }) => {
         <StLabel>
           내용
           <StInput
-            name="description"
             id={description}
             defaultValue={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -128,9 +129,7 @@ const Detail = ({ expenses, setExpenses }) => {
         </StLabel>
       </StForm>
       <StBtnBox>
-        <StBtn onClick={editExpense} type="submit">
-          수정
-        </StBtn>
+        <StBtn onClick={editExpense}>수정</StBtn>
         <StBtn onClick={deleteExpense} type="submit">
           삭제
         </StBtn>

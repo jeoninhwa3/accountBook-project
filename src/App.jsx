@@ -4,19 +4,8 @@ import { useState } from "react";
 import dummy from "./dummy.json";
 
 function App() {
-  const [selectedMonth, setSelectedMonth] = useState(() => {
-    return localStorage.getItem("month")
-      ? parseInt(localStorage.getItem("month"))
-      : 0;
-  });
-  const [expenses, setExpenses] = useState(() => {
-    return dummy.filter((el) => {
-      return (
-        parseInt(el.date.split("-")[1]) ===
-        parseInt(localStorage.getItem("month"))
-      );
-    });
-  });
+  const [selectedMonth, setSelectedMonth] = useState(1);
+  const [expenses, setExpenses] = useState(dummy);
   return (
     <>
       <GlobalStyle />
